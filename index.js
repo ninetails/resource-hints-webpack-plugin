@@ -104,6 +104,7 @@ function findAssetsByStats (filter, compilation) {
   const assets = compilation.getStats().compilation.assets;
   const publicPath = compilation.options.output.publicPath;
   return Object.keys(assets)
+    .filter(url => !/\.map$/.test(url)) // removing source maps
     .filter(minimatch.filter(filter))
     .map(file => `${publicPath}${file}`);
 }
